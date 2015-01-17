@@ -5,7 +5,7 @@ app.controller('mainCtrl',['$scope','$http',function($scope,$http){
   $scope.champions=[];
   $scope.started=false;
   $scope.correct=false;
-
+  $scope.spellChampName="";
 
   $http.get('https://na.api.pvp.net/api/lol/static-data/na/v1.2/champion?api_key=c388af0c-681a-431b-a5fb-b21dd04c7c0a').success(function(data){
   $scope.before=data.data;
@@ -20,6 +20,7 @@ app.controller('mainCtrl',['$scope','$http',function($scope,$http){
   $scope.randomize=function(){
     var random=Math.floor((Math.random()*123)+1)
     $scope.currentChampion=$scope.after[random];
+    $scope.getRandomSpell();
   };
 
   $scope.start=function(){
@@ -27,21 +28,27 @@ app.controller('mainCtrl',['$scope','$http',function($scope,$http){
     $scope.started=true;
     var random2=Math.floor((Math.random()*123)+1)
     $scope.currentChampion=$scope.after[random2];
+    $scope.getRandomSpell();
 
 
   };
-  $scope.check=function(toCheck){
-    if(toCheck==$scope.currentChampion[1].name){
+  $scope.check=function(toCheck,key){
+    console.log(toCheck+" "+key)
+    if(toCheck==key){
       $scope.correct=true;
       window.alert('CORRECT!')
       $scope.randomize();
+      $scope.getRandomSpell();
       $scope.answer=""
+      $scope.answerSpell=""
     }
     else{
       $scope.correct=false;
-      window.alert('NO! IT WAS '+$scope.currentChampion[1].name)
+      window.alert('NO! IT WAS '+$scope.spellChampName);
       $scope.randomize();
+      $scope.getRandomSpell();
       $scope.answer=""
+      $scope.answerSpell=""
     }
   };
 
@@ -56,5 +63,22 @@ app.controller('mainCtrl',['$scope','$http',function($scope,$http){
     $http.put('http://localhost:8080/api/globalscore/'+add).success(function(data){
       console.log('added '+add+' to globalscore')
     })
-  }
+  };
+  $scope.getRandomSpell=function(){
+    $http.get('https://na.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=c388af0c-681a-431b-a5fb-b21dd04c7c0a').success(function(data){
+      $scope.beforeSpell=data.data;
+      var resultSpell=[];
+      for(var i in $scope.beforeSpell){
+        resultSpell.push([i,$scope.beforeSpell[i]]);
+      }
+      $scope.afterSpell=resultSpell;
+      var random3=Math.floor((Math.random()*123)+1)
+      var random4=Math.floor((Math.random()*4)+1)
+      $scope.test=$scope.afterSpell[random3][1].spells[random4].name;
+      $scope.spellChampName=$scope.afterSpell[random3][1].name
+
+    })
+  };
+
+
 }]);
