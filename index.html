@@ -7,6 +7,7 @@
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28/angular.min.js"></script>
 		<script type="text/javascript" src="app.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+		<link type="image/x-icon" rel="icon" href="favicon.ico" />
 	</head>
 	<body ng-controller="mainCtrl">
 		<div class="container">
@@ -14,7 +15,7 @@
 					<h2> League of Legends Quiz Time!</h2>
 			</div>
 			<div class="jumbotron">
-				<p ><button ng-show="!started" type="button" ng-click="start()" class="btn btn-default">Start!</button></p>
+				<p ><button ng-show="!started" type="button" ng-click="start()" class="btn btn-primary btn-lg">Start!</button></p>
 				<p  ng-show="started">Who is {{currentChampion[1].title}}?</p>
 
 				<div ng-show="started">
