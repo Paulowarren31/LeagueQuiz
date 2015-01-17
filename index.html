@@ -24,7 +24,7 @@
 					<button type="button" ng-click="check(answer,currentChampion[1].name)" class="btn btn-primary btn-md">Submit</button>
 				</div>
 			</div>
-			<div class="jumbotron">
+			<div ng-show="started" class="jumbotron">
 				<p  ng-show="started">which champion casts {{test}}?</p>
 				<div ng-show="started">
 					<div class="col-xs-3">
