@@ -1,8 +1,7 @@
 
 var app = angular.module('main', []);
 app.controller('mainCtrl',['$scope','$http',function($scope,$http){
-  $scope.points=0;
-  $scope.globalScore;
+  $scope.points;
   $scope.champions=[];
   $scope.started=false;
   $scope.correct=false;
@@ -20,6 +19,7 @@ app.controller('mainCtrl',['$scope','$http',function($scope,$http){
 
 
   $scope.randomize=function(){
+    $scope.globalScore=$scope.getGlobalScore();
     var random=Math.floor((Math.random()*123)+1)
     $scope.currentChampion=$scope.after[random];
     $scope.getRandomSpell();
@@ -34,25 +34,43 @@ app.controller('mainCtrl',['$scope','$http',function($scope,$http){
 
 
   };
-  $scope.check=function(toCheck,key){
+  $scope.check=function(toCheck,key,id){
+
     console.log(toCheck+" "+key)
     if(toCheck==key){
       $scope.correct=true;
-      window.alert('CORRECT! You get a point.')
       $scope.firstSolved=true;
-      $scope.points=$scope.points+1;
-      $scope.randomize();
-      $scope.getRandomSpell();
-      $scope.answer=""
-      $scope.answerSpell=""
+      if(id==1){
+        window.alert('CORRECT! You get a point.')
+        $scope.randomize();
+        $scope.answer=""
+        $scope.addToGlobalScore(1);
+      }
+      else{
+        $scope.getRandomSpell();
+        $scope.answerSpell=""
+        $scope.addToGlobalScore(1);
+      }
+
+
+      scope.points=$scope.points+1;
+
     }
     else{
       $scope.correct=false;
-      window.alert('NO! IT WAS '+$scope.spellChampName);
+      if(id==2){
+        window.alert('NO! IT WAS '+$scope.spellChampName);
+      }
+      else{
+        window.alert('NO! IT WAS '+$scope.currentChampion[1].name);
+      }
+
+      $scope.points=$scope.points-1;
       $scope.randomize();
       $scope.getRandomSpell();
       $scope.answer=""
       $scope.answerSpell=""
+      $scope.globalScore=50;
     }
   };
 
