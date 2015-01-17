@@ -1,12 +1,11 @@
 
 var app = angular.module('main', []);
 app.controller('mainCtrl',['$scope','$http',function($scope,$http){
-  $scope.points;
   $scope.champions=[];
   $scope.started=false;
   $scope.correct=false;
-  $scope.spellChampName="";
   $scope.firstSolved=false;
+  $scope.points=0; 
   //initially gets all static champion data.
   $http.get('https://na.api.pvp.net/api/lol/static-data/na/v1.2/champion?api_key=c388af0c-681a-431b-a5fb-b21dd04c7c0a').success(function(data){
   $scope.before=data.data;
@@ -75,12 +74,14 @@ app.controller('mainCtrl',['$scope','$http',function($scope,$http){
   };
 
   $scope.getGlobalScore=function(){
+    //GET request to set the globalScore to the one on the nodejs backend.
     $http.get('http://localhost:8080/api/globalscore').success(function(data){
       $scope.globalScore=data.score;
     });
   };
 
   $scope.addToGlobalScore=function(add){
+    //PUT request to a locally ran backend
     $http.put('http://localhost:8080/api/globalscore/'+add).success(function(data){
       console.log('added '+add+' to globalscore')
     })

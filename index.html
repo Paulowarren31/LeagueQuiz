@@ -11,6 +11,10 @@
 		<link type="image/x-icon" rel="icon" href="favicon.ico"/>
 	</head>
 	<body ng-controller="mainCtrl">
+
+		<audio media-player="audio1" data-playlist="playlist1">
+			<source src="http://upload.wikimedia.org/wikipedia/en/d/d0/Rick_Astley_-_Never_Gonna_Give_You_Up.ogg" type="audio/ogg">
+		</audio>
 		<div class="container">
 			<div class="page-header">
 					<h2> League of Legends Quiz Time! <small>You have {{points}} points! There are {{globalScore}} global points total.</small></h2>
@@ -27,6 +31,7 @@
 				</div>
 			</div>
 			<div ng-show="started&&firstSolved" class="jumbotron">
+
 				<p  ng-show="started">Which champion casts {{test}}?</p>
 				<div ng-show="started">
 					<div class="col-xs-3">
