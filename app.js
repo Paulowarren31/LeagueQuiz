@@ -24,13 +24,17 @@ app.controller('mainCtrl',['$scope','$http',function($scope,$http){
 
   };
   $scope.check=function(toCheck){
-    if(toCheck==$scope.currentChampion[1].title){
+    if(toCheck==$scope.currentChampion[1].name){
       $scope.correct=true;
       window.alert('CORRECT!')
+      $scope.randomize();
+      $scope.answer=""
     }
     else{
       $scope.correct=false;
-      window.alert('NO! IT WAS '+$scope.currentChampion[1].title)
+      window.alert('NO! IT WAS '+$scope.currentChampion[1].name)
+      $scope.randomize();
+      $scope.answer=""
     }
   };
 }]);
