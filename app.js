@@ -59,7 +59,6 @@ app.controller('mainCtrl',['$scope','$http',function($scope,$http){
   $scope.getGlobalScore=function(){
     $http.get('http://localhost:8080/api/globalscore').success(function(data){
       $scope.globalScore=data.score;
-      console.log($scope.globalScore)
     });
   };
 
