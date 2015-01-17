@@ -9,18 +9,22 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	</head>
 	<body ng-controller="mainCtrl">
-		<div class="jumbotron">
-			<h1 align="center">League of Legends Quiz!</h1>
-			<p align="center"><button type="button" ng-click="start()" class="btn btn-default">Start!</button></p>
-			<p align="center" ng-show="started">Who is {{currentChampion[1].title}}?</p>
+		<div class="container">
+			<div class="page-header">
+					<h2> League of Legends Quiz Time! </h2>
+			</div>
+			<div class="jumbotron">
+				<p ><button ng-show="!started" type="button" ng-click="start()" class="btn btn-default">Start!</button></p>
+				<p  ng-show="started">Who is {{currentChampion[1].title}}?</p>
 
-			<p align="center" ng-show="started">
-				<div style="text-align:center" class="col-xs-2">
-					<input ng-model="answer" type="text" class="form-control" placeholder="Enter"/>
+				<div ng-show="started">
+					<div class="col-xs-3">
+						<input ng-model="answer" type="text" class="form-control" placeholder="Enter"/>
+					</div>
+					<button type="button" ng-click="check(answer)" class="btn btn-primary btn-md">Submit</button>
 				</div>
-				<button type="button" ng-click="check(answer)" class="btn btn-primary btn-md">Submit</button>
-			</p>
 
+			</div>
 		</div>
 	</body>
 </html>
