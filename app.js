@@ -35,7 +35,7 @@ app.controller('mainCtrl',['$scope','$http',function($scope,$http){
   $scope.check=function(toCheck,key,id){
 
     console.log(toCheck+" "+key)
-    if(toCheck==key){
+    if(toCheck.toLowerCase()==key.toLowerCase()){
       $scope.correct=true;
       $scope.firstSolved=true;
       if(id==1){
