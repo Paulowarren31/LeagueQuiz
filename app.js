@@ -132,10 +132,21 @@ app.controller('mainCtrl',['$scope','$http','$modal',function($scope,$http,$moda
 }]);
 
 app.controller('rankCtrl',function($scope,$modalInstance,$http){
-  
-  $http.get('http://localhost:8081/api/leaders').success(function(data){
+
+  $scope.getLeaders();
+
+  $scope.getLeaders=function(){
+    $http.get('http://localhost:8081/api/leaders').success(function(data){
       $scope.leaders=data;
   })
+  }
+
+  $scope.addToLeaderboard=function(name){
+    $http.put('http://localhost:8081/api/leaders/'+name+'/'+$scope.points).success(function(data){
+      console.log(data)
+      $scope.getLeaders();
+    })
+  }
   $scope.ok=function(){
     $modalInstance.close();
   };
