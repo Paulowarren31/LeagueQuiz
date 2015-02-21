@@ -84,19 +84,19 @@ app.controller('mainCtrl',['$scope','$http','$modal',function($scope,$http,$moda
 
   $scope.getGlobalScore=function(){
     //GET request to set the globalScore to the one on the nodejs backend.
-    $http.get('http://localhost:8080/api/globalscore').success(function(data){
+    $http.get('http://localhost:8081/api/globalscore').success(function(data){
       $scope.globalScore=data.score;
     });
   };
 
   $scope.addToGlobalScore=function(add){
     //PUT request to a locally ran backend
-    $http.put('http://localhost:8080/api/globalscore/'+add).success(function(data){
+    $http.put('http://localhost:8081/api/globalscore/'+add).success(function(data){
       console.log('added '+add+' to globalscore')
     })
   };
   $scope.rmToGlobalScore=function(sub){
-    $http.put('http://localhost:8080/api/globalscore/rm/'+sub);
+    $http.put('http://localhost:8081/api/globalscore/rm/'+sub);
   }
 
   $scope.getRandomSpell=function(){
@@ -131,9 +131,19 @@ app.controller('mainCtrl',['$scope','$http','$modal',function($scope,$http,$moda
 
 }]);
 
-app.controller('rankCtrl',function($scope,$modalInstance){
+app.controller('rankCtrl',function($scope,$modalInstance,$http){
+
   $scope.ok=function(){
     $modalInstance.close();
+  };
+
+  $scope.getLeaders=function(){
+    $http.get('http://localhost:8081/api/leaders').success(function(data){
+      $scope.leaders=data;
+    })
   }
+
+
+
 })
 

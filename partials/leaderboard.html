@@ -2,10 +2,14 @@
     <h3>Leaderboard</h3>
 </div>
 <div class="modal-body">
-    <div class="row">
-    	<div class="col-md-1"><div class="well">1</div></div>
-    	<div class="col-md-10"><div class="well">name</div></div>
-    </div>
+	<li ng-repeat="leader in leaders">
+		<ul>
+    		<div class="row">
+    			<div class="col-md-1"><div class="well">{{$index}}</div></div>
+    			<div class="col-md-10"><div class="well">{{leader.name}}</div></div>
+    		</div>
+    	</ul>
+    </li>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" ng-click="ok()">ok</button>
