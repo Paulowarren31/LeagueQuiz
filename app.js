@@ -117,7 +117,7 @@ app.controller('mainCtrl',['$scope','$http','ModalService',function($scope,$http
 
   $scope.openRank=function(){
     ModalService.showModal({
-      templateURL: "partials/login.html",
+      templateURL: "home.html",
       controller: "rankCtrl"
     }).then(function(modal){
       modal.element.modal();
