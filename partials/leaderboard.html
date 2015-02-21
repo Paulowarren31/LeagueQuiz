@@ -18,7 +18,9 @@
       		</tr>
     	</thead>
     	<tbody>
-      		
+      		<tr ng-repeat="leader in leaders">
+      			<td>{{leader.score}}</td><td>{{leader.name}}</td>
+      		</tr>
   	</table>
 </div>
 <div class="modal-footer">
