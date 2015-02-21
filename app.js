@@ -1,7 +1,7 @@
 
-var app = angular.module('main',['angularModalService']);
+var app = angular.module('main',['ui.bootstrap']);
 
-app.controller('mainCtrl',['$scope','$http','ModalService',function($scope,$http,ModalService){
+app.controller('mainCtrl',['$scope','$http','$modal',function($scope,$http,$modal){
 
   $scope.champions=[];
   $scope.started=false;
@@ -116,23 +116,22 @@ app.controller('mainCtrl',['$scope','$http','ModalService',function($scope,$http
   };
 
   $scope.openRank=function(){
-    ModalService.showModal({
-      templateURL: "home.html",
-      controller: "rankCtrl"
-    }).then(function(modal){
-      modal.element.modal();
-      modal.close.then(function(result){
-        console.log(result);
-      })
-    })
+    var modalInstance = $modal.open({
+      templateUrl: 'rank.html',
+      controller: 'rankCtrl'
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+      $scope.selected=selectedItem;
+    }, function () {
+      
+    });
   };
 
 
 }]);
 
-app.controller('rankCtrl',function($scope, close){
-  $scope.close=function(){
-    close("success");
-  }
+app.controller('rankCtrl',function($scope,$modalInstance){
+
 })
 
