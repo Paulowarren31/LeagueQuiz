@@ -117,7 +117,7 @@ app.controller('mainCtrl',['$scope','$http','$modal',function($scope,$http,$moda
 
   $scope.openRank=function(){
     var modalInstance = $modal.open({
-      templateUrl: 'rank.html',
+      templateUrl: 'partials/rank.html',
       controller: 'rankCtrl'
     });
 
