@@ -1,20 +1,27 @@
 
-var app = angular.module('main', []);
-app.controller('mainCtrl',['$scope','$http',function($scope,$http){
+var app = angular.module('main',['ui.bootstrap']);
+
+app.controller('mainCtrl',['$scope','$http','$modal',function($scope,$http,$modal){
+
   $scope.champions=[];
   $scope.started=false;
   $scope.correct=false;
   $scope.firstSolved=false;
   $scope.points=0;
+
   //initially gets all static champion data.
   $http.get('https://na.api.pvp.net/api/lol/static-data/na/v1.2/champion?api_key=c388af0c-681a-431b-a5fb-b21dd04c7c0a').success(function(data){
-  $scope.before=data.data;
-  var result=[];
-  for(var i in $scope.before){
-    result.push([i,$scope.before[i]]);
-  }
-  $scope.after=result;
+    $scope.before=data.data;
+    var result=[];
+    //this loop converts the JSON data into an easier result array. 
+    //initially, some variables on the returned data were the actual names of champions
+    for(var i in $scope.before){
+      result.push([i,$scope.before[i]]);
+    }
+    $scope.after=result;
   });
+
+
 
   $scope.randomize=function(){
     $scope.globalScore=$scope.getGlobalScore();
@@ -108,5 +115,13 @@ app.controller('mainCtrl',['$scope','$http',function($scope,$http){
     })
   };
 
+  $scope.openRank=function(){
+    var modalInstance = $modal.open({
+      templateURL: '/login.html',
+      controller: 'mainCtrl'
+    });
+  };
+
 
 }]);
+

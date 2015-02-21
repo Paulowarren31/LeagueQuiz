@@ -1,0 +1,28 @@
+<div class="container">
+	<div class="page-header">
+			<h2> League of Legends Quiz Time! <small>You have {{points}} points! There are {{globalScore}} global points total.</small></h2>
+	</div>
+	<div class="jumbotron">
+		<p ><button ng-show="!started" type="button" ng-click="start()" class="btn btn-primary btn-lg">Start!</button></p>
+		<p  ng-show="started">Who is {{currentChampion[1].title}}?</p>
+		<div ng-show="started">
+			<div class="col-xs-3">
+				<input ng-model="answer" type="text" class="form-control" placeholder="Enter"/>
+			</div>
+			<button type="button" ng-click="check(answer,currentChampion[1].name,1)" class="btn btn-primary btn-md">Submit</button>
+		</div>
+	</div>
+	<div ng-show="firstSolved" class="jumbotron">
+		<p  ng-show="started">Which champion casts {{test}}?</p>
+		<div ng-show="started">
+			<div class="col-xs-3">
+				<input ng-model="answerSpell" type="text" class="form-control" placeholder="Enter"/>
+			</div>
+			<button type="button" ng-click="check(answerSpell,spellChampName,2)" class="btn btn-primary btn-md">Submit</button>
+		</div>
+	</div>
+	<div ng-show="points==10" class="jumbotron">
+		<img src="http://stream1.gifsoup.com/view/760779/carlton-dance-o.gif"></img>
+		<p>if you can see this, you've been here too long.</p>
+	</div>
+</div>
