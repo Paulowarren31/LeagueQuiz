@@ -1,7 +1,7 @@
 
-var app = angular.module('main',['ui.bootstrap']);
+var app = angular.module('main',['angularModalService']);
 
-app.controller('mainCtrl',['$scope','$http','$modal',function($scope,$http,$modal){
+app.controller('mainCtrl',['$scope','$http','ModalService',function($scope,$http,ModalService){
 
   $scope.champions=[];
   $scope.started=false;
@@ -116,12 +116,23 @@ app.controller('mainCtrl',['$scope','$http','$modal',function($scope,$http,$moda
   };
 
   $scope.openRank=function(){
-    var modalInstance = $modal.open({
-      templateURL: 'partials/login.html',
-      controller: 'mainCtrl'
-    });
+    ModalService.showModal({
+      templateURL: "partials/login.html",
+      controller: "rankCtrl"
+    }).then(function(modal){
+      modal.element.modal();
+      modal.close.then(function(result){
+        console.log(result);
+      })
+    })
   };
 
 
 }]);
+
+app.controller('rankCtrl',function($scope, close){
+  $scope.close=function(){
+    close("success");
+  }
+})
 
