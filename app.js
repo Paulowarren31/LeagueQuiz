@@ -132,6 +132,8 @@ app.controller('mainCtrl',['$scope','$http','$modal',function($scope,$http,$moda
 }]);
 
 app.controller('rankCtrl',function($scope,$modalInstance){
-
+  $scope.ok=function(){
+    $modalInstance.close();
+  }
 })
 
