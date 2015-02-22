@@ -133,7 +133,7 @@ app.controller('mainCtrl',['$scope','$http','$modal',function($scope,$http,$moda
 
 app.controller('rankCtrl',function($scope,$modalInstance,$http){
 
-
+  getLeaders();
   $scope.getLeaders=function(){
     $http.get('http://localhost:8081/api/leaders').success(function(data){
       $scope.leaders=data;
