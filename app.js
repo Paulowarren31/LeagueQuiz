@@ -36,8 +36,8 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
   });
 
   $scope.switch=function(){
-    $scope.titlesOn=!scope.titlesOn
-    $scope.spellsOn=!scope.spellsOn
+    $scope.titlesOn=!$scope.titlesOn
+    $scope.spellsOn=!$scope.spellsOn
   }
 
   $scope.randomize=function(){
