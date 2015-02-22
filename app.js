@@ -26,6 +26,7 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
   $scope.started=false;
   $scope.correct=false;
   $scope.points=pointService.getPts();
+  $scope.getGlobalScore;
 
   //initially gets all static champion data.
   $http.get('https://na.api.pvp.net/api/lol/static-data/na/v1.2/champion?api_key=c388af0c-681a-431b-a5fb-b21dd04c7c0a').success(function(data){
@@ -96,7 +97,6 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
       }
       pointService.addPt(1);
       $scope.addToGlobalScore(1);
-      $scope.getGlobalScore();
       $scope.points=pointService.getPts();
     }
     else{
@@ -113,7 +113,6 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
       }
       pointService.addPt(-1)
       $scope.addToGlobalScore(-1);
-      $scope.getGlobalScore();
       $scope.points=pointService.getPts();
       
     }
@@ -131,6 +130,7 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
     //PUT request to a locally ran backend
     $http.put('http://10.0.0.24:8081/api/globalscore/'+add).success(function(data){
     })
+    $scope.getGlobalScore();
   };
 
 
