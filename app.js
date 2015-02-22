@@ -1,6 +1,11 @@
-
+//We inject 'ui.bootstrap' to allow us to use modals.
 var app = angular.module('main',['ui.bootstrap']);
 
+/*
+This is the service that allows the local
+user's points to be passed between the 
+main controller and the modal controller
+*/
 app.service('pointService',function(){
   var points=0;
   var addPt=function(pts){
@@ -14,7 +19,7 @@ app.service('pointService',function(){
     getPts: getPts
   };
 });
-
+//we inject pointservice to be able to get the points that a user has.
 app.controller('mainCtrl',function($scope,$http,$modal,pointService){
   $scope.titlesOn=true;
   $scope.spellsOn=false;
@@ -39,6 +44,7 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
     $scope.titlesOn=!$scope.titlesOn
     $scope.spellsOn=!$scope.spellsOn
   }
+
   /*
   randomizes the spell and
   title by creating a random
@@ -51,19 +57,29 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
     $scope.currentChampion=$scope.after[random];
     $scope.getRandomSpell();
   };
+
   /*
   the function that is called 
   when the start button is pressed.
-  Initially gets th
+  initially gets a random champion and passes it to 
+  $scope.currentChampion
   */
   $scope.start=function(){
     $scope.started=true;
     var random2=Math.floor((Math.random()*123)+1)
     $scope.currentChampion=$scope.after[random2];
     $scope.getRandomSpell();
-
-
   };
+
+  /*
+  This is the function that checks if the answer was right.
+  converts both to lowercase, checks if they are equal.
+  If they are, alert with correct and add one to global score
+  and local score. 
+
+  The id parameter specifies if what we are checking is a champion
+  title, or a champion spell. 
+  */
   $scope.check=function(toCheck,key,id){
     if(toCheck.toLowerCase()==key.toLowerCase()){
       $scope.correct=true;
@@ -78,15 +94,10 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
         $scope.getRandomSpell();
         $scope.answerSpell=""
       }
-
-      $scope.addToGlobalScore(1);
-
       pointService.addPt(1);
+      $scope.addToGlobalScore(1);
       $scope.points=pointService.getPts();
-
-
       $scope.globalScore=$scope.getGlobalScore();
-
     }
     else{
       $scope.correct=false;
@@ -102,12 +113,13 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
       }
 
       pointService.addPt(-1)
-      $scope.points=pointService.getPts();
       $scope.addToGlobalScore(-1);
+      $scope.points=pointService.getPts();
       $scope.globalScore=$scope.getGlobalScore();
 
     }
   };
+
 
   $scope.getGlobalScore=function(){
     //GET request to set the globalScore to the one on the nodejs backend.
@@ -121,6 +133,8 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
     $http.put('http://10.0.0.24:8081/api/globalscore/'+add).success(function(data){
     })
   };
+
+
   /*
   executes an http GET request 
   to get the spells of all champions,
@@ -148,29 +162,31 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
       templateUrl: 'partials/leaderboard.html',
       controller: 'rankCtrl'
     });
-    
   };
 
 
 });
 
 app.controller('rankCtrl',function($scope,$modalInstance,$http,pointService){
+  //grabs the points the user has from the point service.
   $scope.getPoints=function(){
     $scope.points=pointService.getPts();
   }
+  //HTTP GET request to the node server to get the leaders
   $scope.getLeaders=function(){
     $http.get('http://10.0.0.24:8081/api/leaders').success(function(data){
       $scope.leaders=data;
   })
   }
-
+  //this just gets all leaders when the controller is initialized
   $scope.getLeaders();
-
+  //HTTP PUT request to add a user to the leaderboard.
   $scope.addToLeaderboard=function(name){
     $http.put('http://10.0.0.24:8081/api/leaders/'+name+'/'+pointService.getPts()).success(function(data){
       $scope.getLeaders();
     })
   }
+  //this is the close button for the modal.
   $scope.ok=function(){
     $modalInstance.close();
   };
