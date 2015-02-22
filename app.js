@@ -16,8 +16,8 @@ app.service('pointService',function(){
 });
 
 app.controller('mainCtrl',function($scope,$http,$modal,pointService){
-
-  $scope.champions=[];
+  $scope.titlesOn=true;
+  $scope.spellsOn=false;
   $scope.started=false;
   $scope.correct=false;
   $scope.firstSolved=false;
@@ -35,7 +35,10 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
     $scope.after=result;
   });
 
-
+  $scope.switch=function(){
+    $scope.titlesOn=!scope.titlesOn
+    $scope.spellsOn=!scope.spellsOn
+  }
 
   $scope.randomize=function(){
     $scope.globalScore=$scope.getGlobalScore();
