@@ -57,8 +57,6 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
 
   };
   $scope.check=function(toCheck,key,id){
-
-    console.log(toCheck+" "+key)
     if(toCheck.toLowerCase()==key.toLowerCase()){
       $scope.correct=true;
       $scope.firstSolved=true;
@@ -114,7 +112,6 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
   $scope.addToGlobalScore=function(add){
     //PUT request to a locally ran backend
     $http.put('http://localhost:8081/api/globalscore/'+add).success(function(data){
-      console.log('added '+add+' to globalscore')
     })
   };
 
@@ -163,9 +160,7 @@ app.controller('rankCtrl',function($scope,$modalInstance,$http,pointService){
   $scope.getLeaders();
 
   $scope.addToLeaderboard=function(name){
-    console.log(name+""+pointService.getPts())
     $http.put('http://localhost:8081/api/leaders/'+name+'/'+pointService.getPts()).success(function(data){
-      console.log(data)
       $scope.getLeaders();
     })
   }
