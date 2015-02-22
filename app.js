@@ -104,14 +104,14 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
 
   $scope.getGlobalScore=function(){
     //GET request to set the globalScore to the one on the nodejs backend.
-    $http.get('http://localhost:8081/api/globalscore').success(function(data){
+    $http.get('http://10.0.0.24:8081/api/globalscore').success(function(data){
       $scope.globalScore=data.score;
     });
   };
 
   $scope.addToGlobalScore=function(add){
     //PUT request to a locally ran backend
-    $http.put('http://localhost:8081/api/globalscore/'+add).success(function(data){
+    $http.put('http://10.0.0.24:8081/api/globalscore/'+add).success(function(data){
     })
   };
 
@@ -152,7 +152,7 @@ app.controller('rankCtrl',function($scope,$modalInstance,$http,pointService){
     $scope.points=pointService.getPts();
   }
   $scope.getLeaders=function(){
-    $http.get('http://localhost:8081/api/leaders').success(function(data){
+    $http.get('http://10.0.0.24:8081/api/leaders').success(function(data){
       $scope.leaders=data;
   })
   }
@@ -160,7 +160,7 @@ app.controller('rankCtrl',function($scope,$modalInstance,$http,pointService){
   $scope.getLeaders();
 
   $scope.addToLeaderboard=function(name){
-    $http.put('http://localhost:8081/api/leaders/'+name+'/'+pointService.getPts()).success(function(data){
+    $http.put('http://10.0.0.24:8081/api/leaders/'+name+'/'+pointService.getPts()).success(function(data){
       $scope.getLeaders();
     })
   }
