@@ -1,13 +1,27 @@
 
 var app = angular.module('main',['ui.bootstrap']);
 
-app.controller('mainCtrl',['$scope','$http','$modal',function($scope,$http,$modal){
+app.service('pointService',function(){
+  var points=0;
+  var addPt=function(pts){
+    points=points+pts;
+  }
+  var getPts=function(){
+    return points;
+  }
+  return{
+    addPt: addPt,
+    getPts: getPts
+  };
+});
+
+app.controller('mainCtrl',function($scope,$http,$modal,pointService){
 
   $scope.champions=[];
   $scope.started=false;
   $scope.correct=false;
   $scope.firstSolved=false;
-  $scope.points=0;
+  $scope.points=pointService.getPts();
 
   //initially gets all static champion data.
   $http.get('https://na.api.pvp.net/api/lol/static-data/na/v1.2/champion?api_key=c388af0c-681a-431b-a5fb-b21dd04c7c0a').success(function(data){
@@ -58,7 +72,11 @@ app.controller('mainCtrl',['$scope','$http','$modal',function($scope,$http,$moda
       }
 
       $scope.addToGlobalScore(1);
-      $scope.points=$scope.points+1;
+
+      pointService.addPt(1);
+      $scope.points=pointService.getPts();
+
+
       $scope.globalScore=$scope.getGlobalScore();
 
     }
@@ -75,7 +93,8 @@ app.controller('mainCtrl',['$scope','$http','$modal',function($scope,$http,$moda
         $scope.answer=""
       }
 
-      $scope.points=$scope.points-1;
+      pointService.addPt(-1)
+      $scope.points=pointService.getPts();
       $scope.addToGlobalScore(-1);
       $scope.globalScore=$scope.getGlobalScore();
 
@@ -95,9 +114,6 @@ app.controller('mainCtrl',['$scope','$http','$modal',function($scope,$http,$moda
       console.log('added '+add+' to globalscore')
     })
   };
-  $scope.rmToGlobalScore=function(sub){
-    $http.put('http://localhost:8081/api/globalscore/rm/'+sub);
-  }
 
   $scope.getRandomSpell=function(){
     $http.get('https://na.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=c388af0c-681a-431b-a5fb-b21dd04c7c0a').success(function(data){
@@ -129,9 +145,9 @@ app.controller('mainCtrl',['$scope','$http','$modal',function($scope,$http,$moda
   };
 
 
-}]);
+});
 
-app.controller('rankCtrl',function($scope,$modalInstance,$http){
+app.controller('rankCtrl',function($scope,$modalInstance,$http,pointService){
 
   $scope.getLeaders=function(){
     $http.get('http://localhost:8081/api/leaders').success(function(data){
