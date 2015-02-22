@@ -133,12 +133,12 @@ app.controller('mainCtrl',['$scope','$http','$modal',function($scope,$http,$moda
 
 app.controller('rankCtrl',function($scope,$modalInstance,$http){
 
-  getLeaders();
   $scope.getLeaders=function(){
     $http.get('http://localhost:8081/api/leaders').success(function(data){
       $scope.leaders=data;
   })
   }
+  $scope.getLeaders();
 
   $scope.addToLeaderboard=function(name){
     $http.put('http://localhost:8081/api/leaders/'+name+'/'+$scope.points).success(function(data){
