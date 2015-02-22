@@ -141,12 +141,7 @@ app.controller('rankCtrl',function($scope,$modalInstance,$http){
   })
   }
 
-  $scope.addToLeaderboard=function(name){
-    $http.put('http://localhost:8081/api/leaders/'+name+'/'+$scope.points).success(function(data){
-      console.log(data)
-      $scope.getLeaders();
-    })
-  }
+  
   $scope.ok=function(){
     $modalInstance.close();
   };
