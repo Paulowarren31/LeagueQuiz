@@ -148,12 +148,15 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
 });
 
 app.controller('rankCtrl',function($scope,$modalInstance,$http,pointService){
-
+  $scope.getPoints=function(){
+    $scope.points=pointService.getPts();
+  }
   $scope.getLeaders=function(){
     $http.get('http://localhost:8081/api/leaders').success(function(data){
       $scope.leaders=data;
   })
   }
+
   $scope.getLeaders();
 
   $scope.addToLeaderboard=function(name){

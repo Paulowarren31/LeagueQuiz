@@ -40,7 +40,7 @@
   	</table>
   	<div class="input-group">
       <span class="input-group-btn">
-        <button ng-click="addToLeaderboard(leaderName)"class="btn btn-primary" type="button">{{leaderName}}Add Score</button>
+        <button ng-init="getPoints()" ng-click="addToLeaderboard(leaderName)"class="btn btn-primary" type="button">Add Score ({{points}})</button>
       </span>
       <input ng-model="leaderName" type="text" class="form-control" placeholder="name">
     </div><!-- /input-group -->
