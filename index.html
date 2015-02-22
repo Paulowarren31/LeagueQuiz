@@ -42,10 +42,10 @@
 	<div class="page-header">
 			<h2> {{blah}}League of Legends Quiz Time! <small>You have {{points}} points! There are {{globalScore}} global points total.</small></h2>
 	</div>
-	<div class="well">
+	<div ng-show="titlesOn" class="well">
 		<p ><button ng-show="!started" type="button" ng-click="start()" class="btn btn-primary btn-lg">Start!</button></p>
 				
-				<div ng-show="titlesOn">
+				<div>
 					<p  ng-show="started">Who is {{currentChampion[1].title}}?</p>
 					<div ng-show="started">
 					<div class="col-xs-3">
@@ -55,7 +55,13 @@
 					<button type="button" ng-click="switch()" class="btn btn-danger">Switch</button>
 					</div>
 				</div>
-			<div ng-show="spellsOn" class="well">
+
+			<div ng-show="points==10" class="well">
+				<img src="http://stream1.gifsoup.com/view/760779/carlton-dance-o.gif"></img>
+				<p>if you can see this, you've been here too long. Make sure to put yourself in the leaderboards!</p>
+			</div>
+		</div>
+		<div ng-show="spellsOn" class="well">
 
 				<p  ng-show="started">Which champion casts {{test}}?</p>
 				<div ng-show="started">
@@ -66,11 +72,6 @@
 					<button type="button" ng-click="switch()" class="btn btn-danger">Switch</button>
 				</div>
 			</div>
-			<div ng-show="points==10" class="well">
-				<img src="http://stream1.gifsoup.com/view/760779/carlton-dance-o.gif"></img>
-				<p>if you can see this, you've been here too long. Make sure to put yourself in the leaderboards!</p>
-			</div>
-		</div>
 
 	</body>
 </html>
