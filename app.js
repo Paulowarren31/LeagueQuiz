@@ -96,7 +96,7 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
       }
       pointService.addPt(1);
       $scope.addToGlobalScore(1);
-      $scope.globalScore=$scope.getGlobalScore();
+      $scope.getGlobalScore();
       $scope.points=pointService.getPts();
     }
     else{
@@ -113,7 +113,7 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
       }
       pointService.addPt(-1)
       $scope.addToGlobalScore(-1);
-      $scope.globalScore=$scope.getGlobalScore();
+      $scope.getGlobalScore();
       $scope.points=pointService.getPts();
       
     }
