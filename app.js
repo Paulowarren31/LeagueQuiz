@@ -96,8 +96,8 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
       }
       pointService.addPt(1);
       $scope.addToGlobalScore(1);
-      $scope.points=pointService.getPts();
       $scope.globalScore=$scope.getGlobalScore();
+      $scope.points=pointService.getPts();
     }
     else{
       $scope.correct=false;
@@ -111,12 +111,11 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
         $scope.randomize();
         $scope.answer=""
       }
-
       pointService.addPt(-1)
       $scope.addToGlobalScore(-1);
-      $scope.points=pointService.getPts();
       $scope.globalScore=$scope.getGlobalScore();
-
+      $scope.points=pointService.getPts();
+      
     }
   };
 
@@ -160,14 +159,14 @@ app.controller('mainCtrl',function($scope,$http,$modal,pointService){
   $scope.openLeaderboard=function(){
     var modalInstance = $modal.open({
       templateUrl: 'partials/leaderboard.html',
-      controller: 'rankCtrl'
+      controller: 'leaderCtrl'
     });
   };
 
 
 });
 
-app.controller('rankCtrl',function($scope,$modalInstance,$http,pointService){
+app.controller('leaderCtrl',function($scope,$modalInstance,$http,pointService){
   //grabs the points the user has from the point service.
   $scope.getPoints=function(){
     $scope.points=pointService.getPts();
